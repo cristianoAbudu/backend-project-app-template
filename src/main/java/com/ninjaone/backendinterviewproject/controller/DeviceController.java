@@ -1,5 +1,6 @@
 package com.ninjaone.backendinterviewproject.controller;
 
+import com.ninjaone.backendinterviewproject.exception.DeviceTypeNotFoundExeption;
 import com.ninjaone.backendinterviewproject.exception.DuplicateEntityExeption;
 import com.ninjaone.backendinterviewproject.model.Device;
 import com.ninjaone.backendinterviewproject.service.DeviceService;
@@ -17,13 +18,13 @@ public class DeviceController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    private Device post(@RequestBody Device sample) throws DuplicateEntityExeption {
+    private Device post(@RequestBody Device sample) throws DuplicateEntityExeption, DeviceTypeNotFoundExeption {
         return service.create(sample);
     }
 
     @PutMapping
     @ResponseStatus(HttpStatus.CREATED)
-    private Device put(@RequestBody Device sample) throws DuplicateEntityExeption {
+    private Device put(@RequestBody Device sample) throws DuplicateEntityExeption, DeviceTypeNotFoundExeption {
         return service.update(sample);
     }
 
