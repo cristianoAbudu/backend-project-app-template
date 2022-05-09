@@ -2,12 +2,10 @@ package com.ninjaone.backendinterviewproject.service;
 
 import com.ninjaone.backendinterviewproject.database.DeviceRepository;
 import com.ninjaone.backendinterviewproject.database.DeviceTypeRepository;
-import com.ninjaone.backendinterviewproject.database.SampleRepository;
 import com.ninjaone.backendinterviewproject.exception.DeviceTypeNotFoundExeption;
 import com.ninjaone.backendinterviewproject.exception.DuplicateEntityExeption;
 import com.ninjaone.backendinterviewproject.model.Device;
 import com.ninjaone.backendinterviewproject.model.DeviceType;
-import com.ninjaone.backendinterviewproject.model.Sample;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;

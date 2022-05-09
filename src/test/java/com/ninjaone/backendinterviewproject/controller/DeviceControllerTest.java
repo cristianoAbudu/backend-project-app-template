@@ -2,8 +2,8 @@ package com.ninjaone.backendinterviewproject.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ninjaone.backendinterviewproject.BackendInterviewProjectApplication;
-import com.ninjaone.backendinterviewproject.model.Sample;
-import com.ninjaone.backendinterviewproject.service.SampleService;
+import com.ninjaone.backendinterviewproject.model.Device;
+import com.ninjaone.backendinterviewproject.service.DeviceService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -28,11 +28,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {BackendInterviewProjectApplication.class})
-@WebMvcTest(SampleController.class)
+@WebMvcTest(DeviceController.class)
 @AutoConfigureMockMvc
 @AutoConfigureDataJpa
-public class SampleControllerTest {
-    public static final String ID = "12345";
+public class DeviceControllerTest {
+    public static final Long ID = 1l;
 
     @Autowired
     private MockMvc mockMvc;
@@ -41,42 +41,42 @@ public class SampleControllerTest {
     ObjectMapper objectMapper;
 
     @MockBean
-    private SampleService sampleService;
+    private DeviceService deviceService;
 
-    private Sample sampleEntity;
+    private Device deviceEntity;
 
     @BeforeEach
     void setup(){
-        sampleEntity = new Sample(ID, "value");
+        deviceEntity = new Device(ID, "value", null);
     }
 
     @Test
-    void getSampleData() throws Exception {
-        when(sampleService.getSampleEntity(ID)).thenReturn(Optional.of(sampleEntity));
+    void getDeviceData() throws Exception {
+        when(deviceService.get(ID)).thenReturn(Optional.of(deviceEntity));
 
-        mockMvc.perform(get("/sample/" + ID))
+        mockMvc.perform(get("/device/" + ID))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(content().string(objectMapper.writeValueAsString(sampleEntity)));
+                .andExpect(content().string(objectMapper.writeValueAsString(deviceEntity)));
     }
 
     @Test
-    void postSampleData() throws Exception {
-        when(sampleService.saveSampleEntity(any())).thenReturn(sampleEntity);
+    void postDeviceData() throws Exception {
+        when(deviceService.create(any())).thenReturn(deviceEntity);
 
-        String sampleEntityString = objectMapper.writeValueAsString(sampleEntity);
-        mockMvc.perform(post("/sample")
+        String deviceEntityString = objectMapper.writeValueAsString(deviceEntity);
+        mockMvc.perform(post("/device")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(sampleEntityString))
+                        .content(deviceEntityString))
                 .andExpect(status().isCreated())
-                .andExpect(content().string(sampleEntityString));
+                .andExpect(content().string(deviceEntityString));
     }
 
     @Test
-    void deleteSampleData() throws Exception {
-        doNothing().when(sampleService).deleteSampleEntity(ID);
+    void deleteDeviceData() throws Exception {
+        doNothing().when(deviceService).delete(ID);
 
-        mockMvc.perform(delete("/sample/" + ID))
+        mockMvc.perform(delete("/device/" + ID))
                 .andExpect(status().isNoContent());
     }
 }
