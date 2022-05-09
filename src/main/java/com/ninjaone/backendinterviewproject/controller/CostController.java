@@ -24,7 +24,7 @@ public class CostController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.CREATED)
-    private BigDecimal post(@RequestBody List<CustomerDeviceDTO> customerDeviceDTOList) throws DeviceNotFoundExeption, ServiceNotFoundExeption {
+    private BigDecimal calculate(@RequestBody List<CustomerDeviceDTO> customerDeviceDTOList) throws DeviceNotFoundExeption, ServiceNotFoundExeption {
         return service.calculate(customerDeviceDTOList);
     }
 

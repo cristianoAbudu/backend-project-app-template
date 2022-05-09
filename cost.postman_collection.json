@@ -1,0 +1,40 @@
+{
+	"info": {
+		"_postman_id": "2d75c30d-b3b3-4225-acfd-6bd0ad087ad2",
+		"name": "cost",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "get cost",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    {\n        \"deviceId\" : 1,\n        \"serviceIdList\" : [1,3,5]\n    },\n    {\n        \"deviceId\" : 2,\n        \"serviceIdList\" : [1,3,5]\n    },\n    {\n        \"deviceId\" : 3,\n        \"serviceIdList\" : [2,3,5]\n    },\n    {\n        \"deviceId\" : 4,\n        \"serviceIdList\" : [2,3,5]\n    },\n    {\n        \"deviceId\" : 5,\n        \"serviceIdList\" : [2,3,5]\n    }\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/cost",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cost"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

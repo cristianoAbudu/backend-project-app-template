@@ -20,11 +20,6 @@ public class DeviceType {
         this.cost = cost;
     }
 
-    public DeviceType(Long id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
     public java.lang.Long getId() {
         return id;
     }
