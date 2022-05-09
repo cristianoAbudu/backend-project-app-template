@@ -22,6 +22,41 @@ public class CostController {
         this.service = service;
     }
 
+    /**
+     *
+     * Calculates the cost of a service package
+     *
+     * Request xample:
+     * <code>
+     *     [
+     *     {
+     *         "deviceId" : 1,
+     *         "serviceIdList" : [1,3,5]
+     *     },
+     *     {
+     *         "deviceId" : 2,
+     *         "serviceIdList" : [1,3,5]
+     *     },
+     *     {
+     *         "deviceId" : 3,
+     *         "serviceIdList" : [2,3,5]
+     *     },
+     *     {
+     *         "deviceId" : 4,
+     *         "serviceIdList" : [2,3,5]
+     *     },
+     *     {
+     *         "deviceId" : 5,
+     *         "serviceIdList" : [2,3,5]
+     *     }
+     * ]
+     * </code>
+     *
+     * @param customerDeviceDTOList
+     * @return
+     * @throws DeviceNotFoundExeption
+     * @throws ServiceNotFoundExeption
+     */
     @GetMapping
     @ResponseStatus(HttpStatus.CREATED)
     private BigDecimal calculate(@RequestBody List<CustomerDeviceDTO> customerDeviceDTOList) throws DeviceNotFoundExeption, ServiceNotFoundExeption {

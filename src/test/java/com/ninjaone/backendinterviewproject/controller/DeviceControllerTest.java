@@ -3,6 +3,7 @@ package com.ninjaone.backendinterviewproject.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ninjaone.backendinterviewproject.BackendInterviewProjectApplication;
 import com.ninjaone.backendinterviewproject.model.Device;
+import com.ninjaone.backendinterviewproject.model.DeviceType;
 import com.ninjaone.backendinterviewproject.service.DeviceService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,6 +18,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.math.BigDecimal;
 import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -47,14 +49,18 @@ public class DeviceControllerTest {
 
     @BeforeEach
     void setup(){
-        deviceEntity = new Device(ID, "value", null);
+        DeviceType deviceType = new DeviceType();
+        deviceType.setId(1l);
+        deviceType.setName("Windows");
+        deviceType.setCost(new BigDecimal(4));
+        deviceEntity = new Device(ID, "value", deviceType);
     }
 
     @Test
     void getDeviceData() throws Exception {
         when(deviceService.get(ID)).thenReturn(Optional.of(deviceEntity));
 
-        mockMvc.perform(get("/device/" + ID))
+        mockMvc.perform(get("/devices/" + ID))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().string(objectMapper.writeValueAsString(deviceEntity)));
@@ -65,7 +71,7 @@ public class DeviceControllerTest {
         when(deviceService.create(any())).thenReturn(deviceEntity);
 
         String deviceEntityString = objectMapper.writeValueAsString(deviceEntity);
-        mockMvc.perform(post("/device")
+        mockMvc.perform(post("/devices")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(deviceEntityString))
                 .andExpect(status().isCreated())
@@ -76,7 +82,7 @@ public class DeviceControllerTest {
     void deleteDeviceData() throws Exception {
         doNothing().when(deviceService).delete(ID);
 
-        mockMvc.perform(delete("/device/" + ID))
+        mockMvc.perform(delete("/devices/" + ID))
                 .andExpect(status().isNoContent());
     }
 }
